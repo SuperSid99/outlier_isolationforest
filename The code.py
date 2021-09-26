@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 ConvolutedIpElement.append(i)
             Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
             if type(Prediction) == str:
-                Outliers.append(z)
+                Outliers.append(Prediction)
             else:
                 Outliers.append("anomaly")
 
