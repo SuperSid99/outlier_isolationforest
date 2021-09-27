@@ -1,5 +1,6 @@
 # functions
 
+
 # to get inputs for X_test
 def get_test_samples():
     Sample = input("\nenter the sample:    ")
@@ -95,49 +96,55 @@ if __name__ == "__main__":
 
     # ---Test Phase---
 
-    TypeTest = input("\nDo you want to use a dataset or add samples? (d or s)")
-    if TypeTest.lower()[0] == "s":
-        while True:
-            MoreSamples = input("\nDo you want to add samples? (yes or no)")
-            if MoreSamples.lower()[0] == "y":
-                X_test.append(get_test_samples())
-            elif MoreSamples.lower()[0] == "n":
-                break
-            else:
-                print("\nenter a valid responce")
+    Test = True
+    while Test == True:
+        TypeTest = input("\nDo you want to use a dataset or add samples? (d or s)")
+        if TypeTest.lower()[0] == "s":
+            Test = False
+            while True:
+                MoreSamples = input("\nDo you want to add samples? (yes or no)")
+                if MoreSamples.lower()[0] == "y":
+                    X_test.append(get_test_samples())
+                elif MoreSamples.lower()[0] == "n":
+                    break
+                else:
+                    print("\nenter a valid responce")
 
-        for _ in X_test:
-            ConvolutedIpElement = convolute_ip_test(_)
-            Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
-            if type(Prediction) == str:
-                Outliers.append(Prediction)
-            else:
-                Outliers.append(_)
+            for _ in X_test:
+                ConvolutedIpElement = convolute_ip_test(_)
+                Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
+                if type(Prediction) == str:
+                    Outliers.append(Prediction)
+                else:
+                    Outliers.append(_)
 
-        for _ in range(len(X_test)):
-            CompareTest.append((X_test[_], Outliers[_]))
+            for _ in range(len(X_test)):
+                CompareTest.append((X_test[_], Outliers[_]))
 
-        print(CompareTest)
+            print(CompareTest)
 
-    else:
-        DatasetTest = pd.read_csv(input("\n Enter the name of the dataset"))
-        X_test = DatasetTest.iloc[:, :].values
-        X_test_convoluted = []
+        elif TypeTest.lower()[0] == "d":
+            Test = False
+            DatasetTest = pd.read_csv(input("\n Enter the name of the dataset"))
+            X_test = DatasetTest.iloc[:, :].values
+            X_test_convoluted = []
 
-        for a in X_test:
-            X_test_convoluted.append(convolute_ip(a))
+            for a in X_test:
+                X_test_convoluted.append(convolute_ip(a))
 
-        for _ in X_test_convoluted:
-            ConvolutedIpElement = []
-            for i in _:
-                ConvolutedIpElement.append(i)
-            Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
-            if type(Prediction) == str:
-                Outliers.append(Prediction)
-            else:
-                Outliers.append("anomaly")
+            for _ in X_test_convoluted:
+                ConvolutedIpElement = []
+                for i in _:
+                    ConvolutedIpElement.append(i)
+                Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
+                if type(Prediction) == str:
+                    Outliers.append(Prediction)
+                else:
+                    Outliers.append("anomaly")
 
-        for _ in range(len(X_test_convoluted)):
-            CompareTest.append((_ + 1, Outliers[_]))
+            for _ in range(len(X_test_convoluted)):
+                CompareTest.append((_ + 1, Outliers[_]))
 
-        print(CompareTest)
+            print(CompareTest)
+        else:
+            print("\nenter a valid responce")
