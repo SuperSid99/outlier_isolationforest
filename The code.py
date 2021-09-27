@@ -14,11 +14,11 @@ def get_test_samples():
 # any 128 bit number
 # input is a string of 128 char containing only 0 or 1
 # output is an array of 32 arrays with float values between 0.0 and 1.5
-def convolute_ip_test(a):
+def convolute_ip_test(BitString):
     Count = 0
     ConvolutedIp = []
     ConvolutedIpElement = ""
-    for _ in a:
+    for _ in BitString:
         Count += 1
         if Count == 4:
             ConvolutedIpElement += _
@@ -34,11 +34,11 @@ def convolute_ip_test(a):
 # any 128 bit number
 # input is an array of 128 arrays with each sub array containing 0 or 1 for the ip
 # output is an array of 32 arrays with float values between 0.0 and 1.5
-def convolute_ip(a):
+def convolute_ip(BitArray):
     Count = 0
     ConvolutedIp = []
     ConvolutedIpElement = ""
-    for _ in a:
+    for _ in BitArray:
         _ = _.strip("[")
         _ = _.strip("]")
         Count += 1
@@ -50,7 +50,7 @@ def convolute_ip(a):
         else:
             ConvolutedIpElement += _
 
-    return ConvolutedIp
+    return (ConvolutedIp)
 
 
 # to predict if an ip is outlier
@@ -128,8 +128,8 @@ if __name__ == "__main__":
             X_test = DatasetTest.iloc[:, :].values
             X_test_convoluted = []
 
-            for a in X_test:
-                X_test_convoluted.append(convolute_ip(a))
+            for _ in X_test:
+                X_test_convoluted.append(convolute_ip(_))
 
             for _ in X_test_convoluted:
                 ConvolutedIpElement = []
