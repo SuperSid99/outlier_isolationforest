@@ -113,10 +113,9 @@ if __name__ == "__main__":
             for _ in X_test:
                 ConvolutedIpElement = convolute_ip_test(_)
                 Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
-                if type(Prediction) == str:
-                    Outliers.append(Prediction)
-                else:
-                    Outliers.append(_)
+                Outliers.append(Prediction) if type(
+                    Prediction
+                ) == str else Outliers.append(_)
 
             for _ in range(len(X_test)):
                 CompareTest.append((X_test[_], Outliers[_]))
@@ -137,10 +136,9 @@ if __name__ == "__main__":
                 for i in _:
                     ConvolutedIpElement.append(i)
                 Prediction = pedict_outlier(Predictor, [ConvolutedIpElement])
-                if type(Prediction) == str:
-                    Outliers.append(Prediction)
-                else:
-                    Outliers.append("anomaly")
+                Outliers.append(Prediction) if type(
+                    Prediction
+                ) == str else Outliers.append("anomaly")
 
             for _ in range(len(X_test_convoluted)):
                 CompareTest.append((_ + 1, Outliers[_]))
