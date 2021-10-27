@@ -50,7 +50,7 @@ def convolute_ip(BitArray):
         else:
             ConvolutedIpElement += _
 
-    return (ConvolutedIp)
+    return ConvolutedIp
 
 
 # to predict if an ip is outlier
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     # contamination = 0 - 0.5 -- expected outlier to total ratio
     # np.random.RandomState(42) -- to get replicable results
     Predictor = IsolationForest(
-        max_samples=100, contamination=0.05, random_state=np.random.RandomState(42)
+        max_samples=100, contamination=0.1, random_state=np.random.RandomState(42)
     )
 
     Predictor.fit(X_train_convoluted)
